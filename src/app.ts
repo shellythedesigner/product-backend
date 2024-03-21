@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 //   })
 // );
 
-var allowlist = ["http://localhost:5173", "https://my-product-inventory-4g8untwe7-shellythedesigners-projects.vercel.app"];
+var allowlist = ["http://localhost:5173", "https://my-product-inventory.vercel.app"];
 var corsOptionsDelegate = function (req:any, callback:any) {
   var corsOptions;
   if (allowlist.indexOf(req.header("Origin")) !== -1) {
