@@ -1,14 +1,15 @@
-import Todo from "../models/todoModel";
 
-export const getAllTodos = async (req: any, res: any) => {
+import airModel from "../models/airModel";
+
+export const getAllAir = async (req: any, res: any) => {
   try {
-    const todos = await Todo.find();
+    const airModels = await airModel.find();
 
     res.status(200).json({
       status: "success",
-      results: todos.length,
+      results: airModels.length,
       data: {
-        todos,
+        airModels,
       },
     });
   } catch (err) {
@@ -19,14 +20,14 @@ export const getAllTodos = async (req: any, res: any) => {
   }
 };
 
-export const addTodo = async (req: any, res: any) => {
+export const addAir = async (req: any, res: any) => {
   try {
-    const newTodo = await Todo.create(req.body);
+    const newairModel = await airModel.create(req.body);
 
     res.status(200).json({
       status: "success",
       data: {
-        todo: newTodo,
+        airModel: newairModel,
       },
     });
   } catch (err) {
@@ -37,29 +38,70 @@ export const addTodo = async (req: any, res: any) => {
   }
 };
 
+export const getAir = async (req: any, res: any) => {
+  try {
+     const data = await airModel.findById(req.params.id);
+     res.status(200).json({
+      status: "success",
+      data
+    });
+  } catch (err) {
+     res.status(404).json({message: 'airModel not found'});
+  }
+ }
 
-// const todos = [
+//delete
+export const deleteAir = async (req: any, res: any) => {
+  try {
+  const { id } = req.params;
+  const data = await airModel.findByIdAndDelete(id);
+  res.status(204).json({
+    status: "success",
+    data
+  });
+} catch (err) {
+  res.status(500).json({ message: 'Error deleting entity'});
+}
+};
+
+
+// // GET /airModels/:id: Retrieves a single airModel by its id.
+// app.get("/airModels/:id", (req, res) => {
+//   const { id } = req.params;
+//   const airModel = airModels.find(t => t.id === parseInt(id));
+  
+//   if (airModel){
+//     res.status(200).send(airModel);
+//   } else {
+//     res.status(404).send('airModel not found');
+//   }
+// });
+
+
+
+
+// const airModels = [
 //   { id: 1, title: "coding" },
 //   { id: 2, title: "cleaning" }
 // ];
 
-// // GET /todos: Returns an array of all todo objects.
-// app.get("/todos", (req, res) => {
-//   res.status(200).send(todos);
+// // GET /airModels: Returns an array of all airModel objects.
+// app.get("/airModels", (req, res) => {
+//   res.status(200).send(airModels);
 // });
 
-// // POST /todos: Adds a new todo to the list.
-// app.post("/todos", (req, res) => {
-//   const newTodo ={
-//     id: todos.length + 1,
+// // POST /airModels: Adds a new airModel to the list.
+// app.post("/airModels", (req, res) => {
+//   const newairModel ={
+//     id: airModels.length + 1,
 //     title: req.body.title
 //   };
-//   todos.push(newTodo);
-//   res.status(201).send({ message: 'Added Successfully', todos: todos });
+//   airModels.push(newairModel);
+//   res.status(201).send({ message: 'Added Successfully', airModels: airModels });
 // });
 
-// // DELETE /todos/:id: Removes a todo from the list by its id.
-// app.delete("/todos/:id", (req, res) => {
+// // DELETE /airModels/:id: Removes a airModel from the list by its id.
+// app.delete("/airModels/:id", (req, res) => {
 //   const { id } = req.params;
 
 //   res.status(200).send({ message: 'Deleted Successfully' });
@@ -67,31 +109,28 @@ export const addTodo = async (req: any, res: any) => {
 
 
 
-
-
-
-// // GET /todos/:id: Retrieves a single todo by its id.
-// app.get("/todos/:id", (req, res) => {
+// // GET /airModels/:id: Retrieves a single airModel by its id.
+// app.get("/airModels/:id", (req, res) => {
 //   const { id } = req.params;
-//   const todo = todos.find(t => t.id === parseInt(id));
+//   const airModel = airModels.find(t => t.id === parseInt(id));
   
-//   if (todo){
-//     res.status(200).send(todo);
+//   if (airModel){
+//     res.status(200).send(airModel);
 //   } else {
-//     res.status(404).send('Todo not found');
+//     res.status(404).send('airModel not found');
 //   }
 // });
 
 // // Update an item name
-// app.put("/todos/:id", (req, res) => {
+// app.put("/airModels/:id", (req, res) => {
 //   const { id } = req.params;
 //   const newTitle = req.body.title;
-//   const todoId = parseInt(id, 10);
-//   const index = todos.findIndex(t => t.id === todoId);
+//   const airModelId = parseInt(id, 10);
+//   const index = airModels.findIndex(t => t.id === airModelId);
 //   if (index !== -1) {
-//     todos[index].title = newTitle;
-//     res.status(200).send({ message: 'Todo updated successfully', todos: todos });
+//     airModels[index].title = newTitle;
+//     res.status(200).send({ message: 'airModel updated successfully', airModels: airModels });
 //  } else {
-//     res.status(404).send({ message: 'Todo not found' });
+//     res.status(404).send({ message: 'airModel not found' });
 //  }
 // });

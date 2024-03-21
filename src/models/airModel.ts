@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const airSchema = new Schema({
-  name: {
+  productName: {
     type: String,
     required: [true, "Name text required!"],
     maxlength: 50,
@@ -9,7 +9,7 @@ const airSchema = new Schema({
   brief: {
     type: String,
     required: [true, "Brief text required!"],
-    maxlength: 50,
+    // maxlength: 50,
   },
   price: {
     type: Number,
@@ -19,13 +19,14 @@ const airSchema = new Schema({
   description: {
     type: String,
     required: [true, "Description text required!"],
-    maxlength: 50,
+    // maxlength: 100,
   },
-  file: {
+  imageUrl: {
     type: String,
     required: [true, "File text required!"],
-    maxlength: 50,
+    // maxlength: 50,
   },
 });
 
 export default model("air", airSchema);
+
